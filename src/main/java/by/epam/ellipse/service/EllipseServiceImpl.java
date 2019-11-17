@@ -3,6 +3,13 @@ package by.epam.ellipse.service;
 import by.epam.ellipse.entity.Ellipse;
 
 public class EllipseServiceImpl implements EllipseService {
+    private static EllipseServiceImpl instance = new EllipseServiceImpl();
+    private EllipseServiceImpl(){}
+    public static EllipseServiceImpl getInstance(){
+        return instance;
+    }
+
+
     public double findPerimeter(Ellipse ellipse) {
         double perimeter = 0;
         double axisX;

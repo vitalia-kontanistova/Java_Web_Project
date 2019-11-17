@@ -42,10 +42,6 @@ public class Creator {
         return ellipse;
     }
 
-    public Ellipse createFromFile(String path) throws ServiceException {
-
-        return null;
-    }
 
     private String getFileAddress(String request) throws IOException {
         Properties property = new Properties();
@@ -72,33 +68,37 @@ public class Creator {
         return response;
     }
 
-    public void createAllFromFile() throws IOException {
-        String path = getFileAddress("ellipse.base");
+    public void createAllFromFile() throws ServiceException {
+        Validator instance = Validator.getInstance();
+
+        String path;
         String entry;
 
         BufferedReader bufferedReader = null;
         FileReader fileReader;
 
         try {
+            path = getFileAddress("ellipse.base");
             fileReader = new FileReader(path);
             bufferedReader = new BufferedReader(fileReader);
 
             while ((entry = bufferedReader.readLine()) != null) {
-                base.add(entry);
+                if (instance.isValidFormat(entry)) {
+                    create(entry);
+                    //записать объект в файл регистратор
+                }
             }
 
-        } catch (IOException e) {
-            throw new IOException("FileManipulator: extractAllEntries(): " + e.getMessage());
+        } catch (IOException | ServiceException e) {
+            throw new ServiceException("Creator: createAllFromFile(): " + e.getMessage());
+
         } finally {
             try {
                 if (bufferedReader != null)
                     bufferedReader.close();
             } catch (IOException e) {
-                throw new IOException("FileManipulator: extractAllEntries(): thread close problem; " + e.getMessage());
+                e.getMessage();
             }
         }
-        return base;
     }
-
-
 }

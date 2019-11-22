@@ -8,7 +8,7 @@ public class ValidatorTest {
 
 //    @Test
 //    public void isValidFormat() {
-//        EllipseDataValidator inst = EllipseDataValidator.getInstance();
+//        EllipseDataValidator inst = EllipseDataValidator.getInstanceEl();
 //        String ell1 = "-0.1 0.1 5.0 4.0";
 //        String ell2 = "0.1 0.1 -5.0 4.0";
 //        String ell3 = "-0. 0.1 5.0 4.0";

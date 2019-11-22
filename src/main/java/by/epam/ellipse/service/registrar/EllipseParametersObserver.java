@@ -1,13 +1,14 @@
 package by.epam.ellipse.service.registrar;
 
 import by.epam.ellipse.entity.Ellipse;
+import by.epam.ellipse.entity.Parameters;
+
 
 public class EllipseParametersObserver implements Observer { // НУЖНО ЛИ ЭТОТ КЛАСС СОЗДАВАТЬ КАК СИНГЛТОН?
 
     private EllipseRegistrar ellipseRegistrar;
     private Ellipse ellipse;
-    private double area;
-    private double perimeter;
+    private Parameters parameters;
 
     public EllipseParametersObserver(EllipseRegistrar ellipseReg) {
         this.ellipseRegistrar = ellipseReg;
@@ -18,27 +19,21 @@ public class EllipseParametersObserver implements Observer { // НУЖНО ЛИ 
         return this.ellipse;
     }
 
-    public double returnArea() {
-        return this.area;
-    }
-
-    public double returnPerimeter() {
-        return this.perimeter;
+    public Parameters returnParameters() {
+        return this.parameters;
     }
 
     @Override
     public void update() {
         this.ellipse = ellipseRegistrar.returnEllipse();
-        this.area = ellipseRegistrar.returnArea();
-        this.perimeter = ellipseRegistrar.returnPerimeter();
+        this.parameters = ellipseRegistrar.returnParameters();
     }
 
     @Override
     public String toString() {//НУЖНО ЛИ ЗДЕСЬ (В ТАКИХ КЛАССАХ) ПЕРЕОПРЕДЕЛЯТЬ ЭТИ ТРИ МЕТОДА? ОНИ ВРОДЕ НЕ БИНЫ, НО ДАННЫЕ ХРАНЯТ.
         return "EllipseParametersObserver{" +
                 ", ellipse=" + ellipse +
-                ", area=" + area +
-                ", perimeter=" + perimeter +
+                ", parameters=" + parameters +
                 '}';
     }
 
@@ -48,17 +43,15 @@ public class EllipseParametersObserver implements Observer { // НУЖНО ЛИ 
         if (o == null || getClass() != o.getClass()) return false;
         EllipseParametersObserver that = (EllipseParametersObserver) o;
 
-        return Double.compare(that.area, area) == 0 &&
-                Double.compare(that.perimeter, perimeter) == 0 &&
-                ellipse.equals(that.ellipse);
+        return ellipse.equals(that.ellipse) &&
+                parameters.equals(that.parameters);
     }
 
     @Override
     public int hashCode() {
         int result = 17;
-        result = result * 31 + (int) Double.doubleToLongBits(area);
-        result = result * 31 + (int) Double.doubleToLongBits(perimeter);
         result = result * 31 + ellipse.hashCode();
+        result = result * 31 + parameters.hashCode();
         return result;
     }
 }

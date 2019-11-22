@@ -5,53 +5,18 @@ import by.epam.ellipse.dao.util.EllipseParser;
 import by.epam.ellipse.dao.util.FileInfoExtractor;
 import by.epam.ellipse.entity.Ellipse;
 import by.epam.ellipse.service.exception.ServiceException;
-
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class EllipseServiceImpl implements EllipseService {
     private static EllipseServiceImpl instance = new EllipseServiceImpl();
+
     private EllipseServiceImpl() {
     }
+
     public static EllipseServiceImpl getInstance() {
         return instance;
-    }
-
-
-    @Override
-    public double findPerimeter(Ellipse ellipse) throws ServiceException {
-        double perimeter = 0;
-        double axisX;
-        double axisY;
-        try {
-            if (isEllipseExist(ellipse)) {
-                axisX = findDeltaX(ellipse);
-                axisY = findDeltaY(ellipse);
-                perimeter = 2 * Math.PI * Math.sqrt((axisX * axisX) + (axisY * axisY) / 8);
-            }
-        } catch (NullPointerException e) {
-            throw new ServiceException("EllipseServiceImpl: findPerimeter(): " + e.getMessage());
-        }
-        return perimeter;
-    }
-
-
-    @Override
-    public double findArea(Ellipse ellipse) throws ServiceException {
-        double area = 0;
-        double axisX;
-        double axisY;
-
-        try {
-            if (isEllipseExist(ellipse)) {
-                axisX = findDeltaX(ellipse);
-                axisY = findDeltaY(ellipse);
-                area = Math.PI * (axisX / 2) * (axisY / 2);
-            }
-        } catch (NullPointerException e) {
-            throw new ServiceException("EllipseServiceImpl: findArea(): " + e.getMessage());
-        }
-        return area;
     }
 
     @Override
@@ -153,16 +118,15 @@ public class EllipseServiceImpl implements EllipseService {
         return (yA * yB) <= 0;
     }
 
-
     @Override
     public boolean isEllipseExist(Ellipse ellipse) throws ServiceException {
-        double axisX;
-        double axisY;
+        double axisX = 0;
+        double axisY = 0;
 
         try {
             axisX = findDeltaX(ellipse);
             axisY = findDeltaY(ellipse);
-        }catch (NullPointerException e) {
+        } catch (NullPointerException e) {
             throw new ServiceException("EllipseServiceImpl: isEllipseExist(): " + e.getMessage());
         }
         return axisX > 0.1 && axisY > 0.1;
@@ -184,28 +148,32 @@ public class EllipseServiceImpl implements EllipseService {
         return axisX > 0.1 && axisY > 0.1;
     }
 
-    private double findDeltaX(Ellipse ellipse)  {
+    //package private
+    double findDeltaX(Ellipse ellipse) {
         Ellipse.Point a = ellipse.getPointA();
         Ellipse.Point b = ellipse.getPointB();
 
         return findDeltaX(a, b);
     }
 
-    private double findDeltaY(Ellipse ellipse) {
+    //package private
+    double findDeltaY(Ellipse ellipse) {
         Ellipse.Point a = ellipse.getPointA();
         Ellipse.Point b = ellipse.getPointB();
 
         return findDeltaY(a, b);
     }
 
-    private double findDeltaX(Ellipse.Point a, Ellipse.Point b) {
+    //package private
+    double findDeltaX(Ellipse.Point a, Ellipse.Point b) {
         double xA = a.getX();
         double xB = b.getX();
 
         return Math.abs(xA - xB);
     }
 
-    private double findDeltaY(Ellipse.Point a, Ellipse.Point b) {
+    //package private
+    double findDeltaY(Ellipse.Point a, Ellipse.Point b) {
         double yA = a.getY();
         double yB = b.getY();
 

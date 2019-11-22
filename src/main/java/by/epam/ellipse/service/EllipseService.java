@@ -4,10 +4,6 @@ import by.epam.ellipse.entity.Ellipse;
 import by.epam.ellipse.service.exception.ServiceException;
 
 public interface EllipseService {
-     double findPerimeter(Ellipse ellipse) throws ServiceException;
-
-     double findArea(Ellipse ellipse) throws ServiceException;
-
      Ellipse createFromString(String ellipseStr) throws ServiceException;
 
      boolean isCircle(Ellipse ellipse) throws ServiceException;

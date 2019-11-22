@@ -10,7 +10,7 @@ public class ExtractorTest {
 
 //    @Test
 //    public void extractCoordinates() {
-//        EllipseParser instance = EllipseParser.getInstance();
+//        EllipseParser instance = EllipseParser.getInstanceEl();
 //
 //        String ell1 = "-0.1 0.1 5.0 4.0";
 //        String ell2 = "0.1 0.1 -5.0 4.0";
@@ -33,14 +33,14 @@ public class ExtractorTest {
 //
 //    @Test
 //    public void parse() {
-//        EllipseParser inst = EllipseParser.getInstance();
+//        EllipseParser inst = EllipseParser.getInstanceEl();
 //        String ell1 = "-0.1 0.1 5.0 4.0";
 //        String ell2 = "0.1 0.1 -5.0 4.0";
 //        String ell3 = "-0. 0.1 5.0 4.0";
 //        String ell4 = "-0.1 0.1 ";
 //        String ell5 = "-0k.1 0.1 0.2 0.4";
 //
-//        EllipseDataValidator ellipseDataValidator = EllipseDataValidator.getInstance();
+//        EllipseDataValidator ellipseDataValidator = EllipseDataValidator.getInstanceEl();
 //        String[] expected = {"-0.1", "0.1", "5.0", "4.0"};
 //        String[] actual;
 //

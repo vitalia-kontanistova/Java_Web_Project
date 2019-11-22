@@ -1,6 +1,7 @@
 package by.epam.ellipse.service.registrar;
 
 import by.epam.ellipse.entity.Ellipse;
+import by.epam.ellipse.entity.Parameters;
 import by.epam.ellipse.service.EllipseServiceImpl;
 import by.epam.ellipse.service.exception.ServiceException;
 import java.util.ArrayList;
@@ -12,8 +13,8 @@ public class EllipseRegistrar implements Observable {
     private List<Observer> ellipses = new ArrayList<>();
 
     private Ellipse ellipse;
-    private double area;
-    private double perimeter;
+    private Parameters parameters;
+
 
     public EllipseRegistrar() {
     }
@@ -38,10 +39,9 @@ public class EllipseRegistrar implements Observable {
     public void setPoints(Ellipse.Point pointA, Ellipse.Point pointB) throws ServiceException {
         try {
             if (instance.isEllipseExist(pointA, pointB)) {
-                this.ellipse = new Ellipse(pointA, pointB);
-                this.area = instance.findArea(this.ellipse);
-                this.perimeter = instance.findPerimeter(this.ellipse);
-
+                this.ellipse.setPointA(pointA);
+                this.ellipse.setPointB(pointB);
+                this.parameters.setEllipse(this.ellipse);
                 notifyObservers();
             }
         } catch (ServiceException e) {
@@ -64,21 +64,17 @@ public class EllipseRegistrar implements Observable {
     }
 
     //package private
-    double returnArea() {
-        return this.area;
+    Parameters returnParameters() {
+        return this.parameters;
     }
 
-    //package private
-    double returnPerimeter() {
-        return this.perimeter;
-    }
 
     @Override
     public String toString() { //НУЖНО ЛИ ЗДЕСЬ (В ТАКИХ КЛАССАХ) ПЕРЕОПРЕДЕЛЯТЬ ЭТИ ТРИ МЕТОДА? ОНИ ВРОДЕ НЕ БИНЫ, НО ДАННЫЕ ХРАНЯТ.
         return "EllipseRegistrar{" +
+                ", ellipses=" + ellipses +
                 ", ellipse=" + ellipse +
-                ", area=" + area +
-                ", perimeter=" + perimeter +
+                ", parameters=" + parameters +
                 '}';
     }
 
@@ -88,17 +84,17 @@ public class EllipseRegistrar implements Observable {
         if (o == null || getClass() != o.getClass()) return false;
         EllipseRegistrar that = (EllipseRegistrar) o;
 
-        return Double.compare(that.area, area) == 0 &&
-                Double.compare(that.perimeter, perimeter) == 0 &&
-                ellipse.equals(that.ellipse);
+        return ellipses.equals(that.ellipses) &&
+                ellipse.equals(that.ellipse) &&
+                parameters.equals(that.parameters);
     }
 
     @Override
     public int hashCode() {
         int result = 17;
-        result = result * 31 + (int) Double.doubleToLongBits(area);
-        result = result * 31 + (int) Double.doubleToLongBits(perimeter);
+        result = result * 31 + ellipses.hashCode();
         result = result * 31 + ellipse.hashCode();
+        result = result * 31 + parameters.hashCode();
         return result;
     }
 }

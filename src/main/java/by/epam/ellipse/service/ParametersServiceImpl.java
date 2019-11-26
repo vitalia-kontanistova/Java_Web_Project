@@ -24,7 +24,7 @@ public class ParametersServiceImpl implements ParametersService {
                 halfAxisX = instance.findDeltaX(ellipse) / 2;
                 halfAxisY = instance.findDeltaY(ellipse) / 2;
                 perimeter = Math.PI * (3 * (halfAxisX + halfAxisY) - Math.sqrt((3 * halfAxisX + halfAxisY) * (halfAxisX + 3 * halfAxisY)));
-            }
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (NullPointerException e) {
             throw new ServiceException("EllipseServiceImpl: findPerimeter(): " + e.getMessage());
         }
@@ -43,7 +43,7 @@ public class ParametersServiceImpl implements ParametersService {
                 halfAxisX = instance.findDeltaX(ellipse) / 2;
                 halfAxisY = instance.findDeltaY(ellipse) / 2;
                 area = Math.PI * (halfAxisX) * (halfAxisY);
-            }
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (NullPointerException e) {
             throw new ServiceException("EllipseServiceImpl: findArea(): " + e.getMessage());
         }

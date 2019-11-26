@@ -67,7 +67,7 @@ public class EllipseServiceImpl implements EllipseService {
 
                 axisX = findDeltaX(ellipse);
                 axisY = findDeltaY(ellipse);
-            }
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (NullPointerException e) {
             throw new ServiceException("EllipseServiceImpl: isCircle(): " + e.getMessage());
         }
@@ -88,7 +88,7 @@ public class EllipseServiceImpl implements EllipseService {
             if (isEllipseExist(ellipse)) {
                 xA = a.getX();
                 xB = b.getX();
-            }
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (NullPointerException e) {
             throw new ServiceException("EllipseServiceImpl: isCrossX(): " + e.getMessage());
         }
@@ -110,7 +110,7 @@ public class EllipseServiceImpl implements EllipseService {
             if (isEllipseExist(ellipse)) {
                 yA = a.getY();
                 yB = b.getY();
-            }
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (NullPointerException e) {
             throw new ServiceException("EllipseServiceImpl: isCrossX(): " + e.getMessage());
         }
@@ -127,25 +127,14 @@ public class EllipseServiceImpl implements EllipseService {
             axisX = findDeltaX(ellipse);
             axisY = findDeltaY(ellipse);
         } catch (NullPointerException e) {
-            throw new ServiceException("EllipseServiceImpl: isEllipseExist(): " + e.getMessage());
+            throw new ServiceException("EllipseServiceImpl: isEllipseExist(): null object has been passed into method.");
         }
         return axisX > 0.1 && axisY > 0.1;
     }
 
     @Override
     public boolean isEllipseExist(Ellipse.Point pointA, Ellipse.Point pointB) throws ServiceException {
-        double axisX;
-        double axisY;
-
-        try {
-            axisX = findDeltaX(pointA, pointB);
-            axisY = findDeltaY(pointA, pointB);
-
-        } catch (NullPointerException e) {
-            throw new ServiceException("EllipseServiceImpl: isEllipseExist(): " + e.getMessage());
-        }
-
-        return axisX > 0.1 && axisY > 0.1;
+        return isEllipseExist(new Ellipse(pointA, pointB));
     }
 
     //package private

@@ -2,6 +2,7 @@ package by.epam.ellipse.service.registrar;
 
 import by.epam.ellipse.entity.Ellipse;
 import by.epam.ellipse.entity.Parameters;
+import by.epam.ellipse.service.exception.ServiceException;
 
 
 public class EllipseParametersObserver implements Observer { // НУЖНО ЛИ ЭТОТ КЛАСС СОЗДАВАТЬ КАК СИНГЛТОН?
@@ -10,9 +11,17 @@ public class EllipseParametersObserver implements Observer { // НУЖНО ЛИ 
     private Ellipse ellipse;
     private Parameters parameters;
 
-    public EllipseParametersObserver(EllipseRegistrar ellipseReg) {
+    public EllipseParametersObserver(EllipseRegistrar ellipseReg) throws ServiceException {
         this.ellipseRegistrar = ellipseReg;
+        this.ellipse = this.ellipseRegistrar.returnEllipse();
+        try {
+            this.parameters = new Parameters(this.ellipse);
+        } catch (ServiceException e) {
+            throw new ServiceException("EllipseParametersObserver(): " + e.getMessage());
+        }
+
         this.ellipseRegistrar.add(this);
+
     }
 
     public Ellipse returnEllipse() {
@@ -24,9 +33,13 @@ public class EllipseParametersObserver implements Observer { // НУЖНО ЛИ 
     }
 
     @Override
-    public void update() {
+    public void update() throws ServiceException {
         this.ellipse = ellipseRegistrar.returnEllipse();
-        this.parameters = ellipseRegistrar.returnParameters();
+        try {
+            this.parameters.setEllipse(this.ellipse);
+        } catch (ServiceException e) {
+            throw new ServiceException("EllipseParametersObserver: update(): " + e.getMessage());
+        }
     }
 
     @Override

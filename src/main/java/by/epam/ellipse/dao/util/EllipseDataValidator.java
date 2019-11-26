@@ -28,7 +28,7 @@ public class EllipseDataValidator {
             return matcher.find();
 
         } catch (NullPointerException e) {
-            throw new DAOexception("EllipseDataValidator: isValidFormat(): Null object has been passed into method.");
+            throw new DAOexception("EllipseDataValidator: isValidFormat(): null object has been passed into method.");
         }
     }
 }

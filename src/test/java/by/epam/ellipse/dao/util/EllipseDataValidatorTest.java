@@ -2,66 +2,85 @@ package by.epam.ellipse.dao.util;
 
 import by.epam.ellipse.dao.exception.DAOexception;
 import org.junit.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class EllipseDataValidatorTest {
+    private EllipseDataValidator instance;
+    private String ellipse1;
+    private String ellipse2;
+    private String ellipse3;
+    private String ellipse4;
 
-    private static EllipseDataValidator instance;
-    private static List<String> entriesValid;
-    private static List<String> entriesInval;
 
     @BeforeClass
-    public static void setUp() throws Exception {
+    public void setUp() {
+        ellipse1 = "-1.0 1.0 -5.0 4.0";
+        ellipse2 = "-0k.1 0.1 0.2 0.4";
+        ellipse3 = "0.1 0.1 ";
+        ellipse4 = "";
+
         instance = EllipseDataValidator.getInstance();
-
-        entriesInval = new ArrayList<>();
-
-        entriesInval.add("0.0 0.0 0.5 0.6 ");
-        entriesInval.add("0.c0 0.0 0.5 0.6");
-        entriesInval.add("0.0 0.0 0.5 0. 6");
-        entriesInval.add("0.0 0.0 ");
-        entriesInval.add("0.0 0.0 0..5 0.6");
-
-        entriesValid = new ArrayList<>();
-
-        entriesValid.add("-0.1 -0.0001 -0.5 -0.6");
-        entriesValid.add("0.0 0.0 0.5 0.6");
-        entriesValid.add("0.0 0.0 0.5 0.6\n");
     }
 
-    @AfterClass
-    public static void tearDown() throws Exception {
-        instance = null;
-        entriesValid = null;
-        entriesInval = null;
-
-    }
-
-    @Test
-    public void isNotValidFormat() {
-        boolean expected = false;
-        try {
-            for (String entry : entriesInval) {
-                expected = instance.isValidFormat(entry);
-                Assert.assertFalse(expected);
-            }
-        } catch (DAOexception e) {
-            e.printStackTrace();
-        }
-    }
+//    @AfterClass            //ЭТО ИЗЛИШНЕ ИЛИ ОСТАВИТЬ ПОСЛУСЛОВИЯ
+//    public void shutDown() {
+//        instance = null;
+//    }
 
     @Test
     public void isValidFormat() {
-        boolean expected = false;
+        boolean actual;
         try {
-            for (String entry : entriesValid) {
-                expected = instance.isValidFormat(entry);
-                Assert.assertTrue(expected);
-            }
+            actual = instance.isValidFormat(ellipse1);
+            Assert.assertTrue(actual);
+
         } catch (DAOexception e) {
             e.printStackTrace();
         }
-        Assert.assertTrue(expected);
+    }
+
+    @Test
+    public void isValidFormat_INCORRECT_FORMAT() {
+        boolean actual;
+        try {
+            actual = instance.isValidFormat(ellipse2);
+            Assert.assertFalse(actual);
+
+        } catch (DAOexception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void isValidFormat_LACK_INFORMATION() {
+        boolean actual;
+        try {
+            actual = instance.isValidFormat(ellipse3);
+            Assert.assertFalse(actual);
+
+        } catch (DAOexception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void isValidFormat_EMPTY_STRING() {
+        boolean actual;
+        try {
+            actual = instance.isValidFormat(ellipse4);
+            Assert.assertFalse(actual);
+
+        } catch (DAOexception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void isValidFormat_NULL() {
+        try {
+            instance.isValidFormat(null);
+            Assert.fail("Expected DAOexception.");
+        } catch (DAOexception e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 }

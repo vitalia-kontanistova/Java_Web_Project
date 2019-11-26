@@ -63,6 +63,9 @@ public class Ellipse {
         this.pointA = pointA;
         this.pointB = pointB;
     }
+    public Ellipse() {
+        this(new Point(-1.0,-1.0),new Point(1.0,1.0));
+    }
 
     public Point getPointA() {
         return pointA;

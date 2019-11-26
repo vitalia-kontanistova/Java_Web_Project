@@ -40,19 +40,21 @@ public class EllipseServiceImpl implements EllipseService {
         return ellipse;
     }
 
-    public List<Ellipse> createFromList() throws ServiceException { //REFACTOR???
+    public List<Ellipse> createFromFile(String request) throws ServiceException { //REFACTOR???
         FileInfoExtractor instance = FileInfoExtractor.getInstance();
 
         List<Ellipse> ellipses = new ArrayList<>();
         List<String> ellipsesStr;
 
         try {
-            ellipsesStr = instance.extractEntriesFromFile("ellipse.base");
+            ellipsesStr = instance.extractEntriesFromFile(request);
             for (String s : ellipsesStr) {
-                ellipses.add(createFromString(s));
+                Ellipse temp = createFromString(s);
+                if (isEllipseExist(temp)) {
+                    ellipses.add(temp);
+                }
             }
-
-        } catch (DAOexception e) {
+        } catch (ServiceException | DAOexception e) {
             throw new ServiceException("EllipseServiceImpl: createFromString(): " + e.getMessage());
         }
         return ellipses;
@@ -60,8 +62,8 @@ public class EllipseServiceImpl implements EllipseService {
 
     @Override
     public boolean isCircle(Ellipse ellipse) throws ServiceException {
-        double axisX = 0;
-        double axisY = 0;
+        double axisX;
+        double axisY;
         try {
             if (isEllipseExist(ellipse)) {
 
@@ -79,8 +81,8 @@ public class EllipseServiceImpl implements EllipseService {
         Ellipse.Point a;
         Ellipse.Point b;
 
-        double xA = 0;
-        double xB = 0;
+        double xA;
+        double xB;
 
         try {
             a = ellipse.getPointA();
@@ -100,8 +102,8 @@ public class EllipseServiceImpl implements EllipseService {
         Ellipse.Point a;
         Ellipse.Point b;
 
-        double yA = 0;
-        double yB = 0;
+        double yA;
+        double yB;
 
         try {
             a = ellipse.getPointA();
@@ -120,8 +122,8 @@ public class EllipseServiceImpl implements EllipseService {
 
     @Override
     public boolean isEllipseExist(Ellipse ellipse) throws ServiceException {
-        double axisX = 0;
-        double axisY = 0;
+        double axisX;
+        double axisY;
 
         try {
             axisX = findDeltaX(ellipse);

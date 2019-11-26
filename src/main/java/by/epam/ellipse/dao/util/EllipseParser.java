@@ -31,7 +31,7 @@ public class EllipseParser {
                 i++;
             }
 
-        } catch (NullPointerException | DAOexception e) {
+        } catch (NullPointerException e) {
             throw new DAOexception("EllipseParser: parseCoordinates(): " + e.getMessage());
         }
         return coordinates;

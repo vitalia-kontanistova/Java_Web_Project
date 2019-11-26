@@ -18,7 +18,7 @@ public class FileInfoExtractor {
     }
 
     public List<String> extractEntriesFromFile(String request) throws DAOexception {
-        //имя файла с данными в файле properties
+        //имя файла с данными в properties
         //String request = "ellipse.base" - исходные данные
         //String request = " test.ellipse.base" - тестовые данные
 
@@ -28,12 +28,12 @@ public class FileInfoExtractor {
         String entry;
 
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(getFileAddress(request)))) {
-            while ((entry = bufferedReader.readLine()) != null) { //сделать более топорно input/outputStream - может пригодиться на собеседовании
+            while ((entry = bufferedReader.readLine()) != null) { //сделать более топорно - может пригодиться на собеседовании
                 if (instance.isValidFormat(entry)) {
                     aLLEntries.add(entry);
                 }
             }
-        } catch (IOException | DAOexception e) {
+        } catch (NullPointerException | IOException | DAOexception e) {
             throw new DAOexception("FileInfoExtractor: extractEntriesFromFile(): " + e.getMessage());
         }
         return aLLEntries;

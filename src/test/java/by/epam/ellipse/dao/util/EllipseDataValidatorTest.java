@@ -21,7 +21,7 @@ public class EllipseDataValidatorTest {
         instance = EllipseDataValidator.getInstance();
     }
 
-//    @AfterClass            //ЭТО ИЗЛИШНЕ ИЛИ ОСТАВИТЬ ПОСЛУСЛОВИЯ
+//    @AfterClass            //ЭТО ИЗЛИШНЕ ИЛИ ОСТАВИТЬ ПОСТУСЛОВИЯ?
 //    public void shutDown() {
 //        instance = null;
 //    }

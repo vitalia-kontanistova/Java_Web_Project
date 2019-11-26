@@ -1,7 +1,6 @@
 package by.epam.ellipse.service.registrar;
 
 import by.epam.ellipse.entity.Ellipse;
-import by.epam.ellipse.entity.Parameters;
 import by.epam.ellipse.service.exception.ServiceException;
 import org.junit.After;
 import org.junit.Assert;

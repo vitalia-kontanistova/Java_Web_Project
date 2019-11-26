@@ -6,128 +6,219 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 
 public class EllipseServiceImplTest {
-    private static EllipseServiceImpl instance = EllipseServiceImpl.getInstance();
+    private static EllipseServiceImpl instance;
+    private static String request;
 
-    private static List<Ellipse> ellipses;
-    private static Ellipse el1;
-    private static Ellipse el2;
-    private static Ellipse el3;
-    private static Ellipse el4;
-    private static Ellipse el5;
-    private static Ellipse el6;
-    private static Ellipse el7;
-    private static Ellipse el8;
+    private Ellipse.Point point1;
+    private Ellipse.Point point2;
+    private Ellipse.Point point3;
+    private Ellipse.Point point4;
+    private Ellipse.Point point5;
+    private Ellipse.Point point6;
+
+    private Ellipse ellipse1;
+    private Ellipse ellipse2;
+    private Ellipse ellipse3;
+    private Ellipse ellipse4;
+
+    private List<Ellipse> expected = new ArrayList<>();
 
     @Before
-    public void setUp() throws Exception {
-        ellipses = new ArrayList<>();
-        el1 = new Ellipse(new Ellipse.Point(0.0, 0.0), new Ellipse.Point(10.0, 10.0));
-        el2 = new Ellipse(new Ellipse.Point(-10.0, -5.0), new Ellipse.Point(0.0, 5.0));
-        el3 = new Ellipse(new Ellipse.Point(-2.0, -2.0), new Ellipse.Point(2.0, 2.0));
+    public void setUp() {
+        instance = EllipseServiceImpl.getInstance();
 
-        el4 = new Ellipse(new Ellipse.Point(-10.0, -5.0), new Ellipse.Point(0.0, 0.0));
-        el5 = new Ellipse(new Ellipse.Point(0.0, 5.0), new Ellipse.Point(10.0, 0.0));
+        point1 = new Ellipse.Point(-1.0, -2.0);
+        point2 = new Ellipse.Point(5.0, 6.0);
+        point3 = new Ellipse.Point(-10.0, -10.0);
+        point4 = new Ellipse.Point(10.0, 10.0);
+        point5 = new Ellipse.Point(10.0, 5.0);
+        point6 = new Ellipse.Point(15.0, 10.0);
 
-        el6 = new Ellipse(null, new Ellipse.Point(10.0, 5.0));
-        el7 = new Ellipse(new Ellipse.Point(0.0, 0.0), new Ellipse.Point(0.0, 0.0));
-        el8 = new Ellipse(new Ellipse.Point(10.0, 5.0), new Ellipse.Point(0.0, 5.0));
+        ellipse1 = new Ellipse(point1, point2);
+        ellipse2 = new Ellipse(point3, point4);
+        ellipse3 = new Ellipse(point5, point6);
+        ellipse4 = new Ellipse(point5, point5);
+
+        expected.add(ellipse1);
+        expected.add(ellipse2);
+        expected.add(ellipse3);
     }
 
     @After
-    public void shutDown() throws Exception {
-        ellipses = null;
-    }
-
-
-    @Test
-    public void createFromString() {
+    public void shutDown() {
+        instance = null;
     }
 
     @Test
-    public void createFromList() {
-    }
+    public void createFromFile() {
+        List<Ellipse> actual;
+        request = "test.ellipse.base";
 
-    @Test
-    public void isCircle() throws ServiceException {
-        ellipses.add(el1);
-        ellipses.add(el2);
-        ellipses.add(el3);
-
-        boolean actual;
-        for (Ellipse ellipse : ellipses) {
-            actual = instance.isCircle(ellipse);
-            Assert.assertTrue(actual);
+        try {
+            actual = instance.createFromFile(request);
+            Assert.assertEquals(actual, expected);
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
         }
     }
 
     @Test
-    public void is_NOT_Circle() throws ServiceException {
-        ellipses.add(el4);
-        ellipses.add(el5);
+    public void createFromFile_WRONG_REQUEST() {
+        request = "test1.ellipse.base";
+        try {
+            instance.createFromFile(request);
+            Assert.fail("Expected ServiceException.");
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+    }
 
-        boolean actual;
-        for (Ellipse ellipse : ellipses) {
-            actual = instance.isCircle(ellipse);
+    @Test
+    public void createFromFile_EMPTY_REQUEST() {
+        request = "";
+        try {
+            instance.createFromFile(request);
+            Assert.fail("Expected ServiceException.");
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+    }
+
+    @Test
+    public void createFromFile_NULL() {
+        try {
+            instance.createFromFile(request);
+            Assert.fail(null);
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void isCircle_FALSE() {
+        try {
+            boolean actual = instance.isCircle(ellipse1);
             Assert.assertFalse(actual);
-        }
-    }
-
-    @Test(expected = ServiceException.class)
-    public void isCircle_INVALID_FORMAT_NUL() throws ServiceException {
-        ellipses.add(el6);
-        ellipses.add(el7);
-        ellipses.add(el8);
-
-        for (Ellipse ellipse : ellipses) {
-            instance.isCircle(ellipse);
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
         }
     }
 
     @Test
-    public void isCrossX() throws ServiceException {
-//        ellipses.add(el1);
-//        ellipses.add(el2);
-//        ellipses.add(el3);
-//
-//        boolean actual;
-//        for (Ellipse ellipse : ellipses) {
-//            actual = instance.isCrossX(ellipse);
-//            Assert.assertTrue(actual);
-//        }
+    public void isCircle_TRUE() {
+        try {
+            boolean actual = instance.isCircle(ellipse2);
+            Assert.assertTrue(actual);
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 
     @Test
-    public void isCrossY() {
+    public void isCircle_INVALID_ELLIPSE() {
+        try {
+            instance.isCircle(ellipse4);
+            Assert.fail("Expected ServiceException.");
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 
     @Test
-    public void isEllipseExist() {
+    public void isCircle_NUL() {
+        try {
+            instance.isCircle(null);
+            Assert.fail("Expected ServiceException.");
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void isCrossX_TRUE() {
+        try {
+            boolean actual = instance.isCrossX(ellipse1);
+            Assert.assertTrue(actual);
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 
     @Test
-    public void isEllipseExist1() {
+    public void isCrossX_FALSE() {
+        try {
+            boolean actual = instance.isCrossX(ellipse3);
+            Assert.assertFalse(actual);
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 
     @Test
-    public void findDeltaX() {
+    public void isCrossX_INVALID_ELLIPSE() {
+        try {
+            instance.isCrossX(ellipse4);
+            Assert.fail("Expected ServiceException.");
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 
     @Test
-    public void findDeltaY() {
+    public void isCrossX_NULL() {
+        try {
+            instance.isCrossX(null);
+            Assert.fail("Expected ServiceException.");
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+    }
+
+
+    @Test
+    public void isCrossY_TRUE() {
+        try {
+            boolean actual = instance.isCrossY(ellipse1);
+            Assert.assertTrue(actual);
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 
     @Test
-    public void findDeltaX1() {
+    public void isCrossY_FALSE() {
+        try {
+            boolean actual = instance.isCrossY(ellipse3);
+            Assert.assertFalse(actual);
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 
     @Test
-    public void findDeltaY1() {
+    public void isCrossY_INVALID_ELLIPSE() {
+        try {
+            instance.isCrossY(ellipse4);
+            Assert.fail("Expected ServiceException.");
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
+    }
+
+    @Test
+    public void isCrossY_NULL() {
+        try {
+            instance.isCrossY(null);
+            Assert.fail("Expected ServiceException.");
+        } catch (ServiceException e) {
+            Assert.assertNotEquals("", e.getMessage());
+        }
     }
 }

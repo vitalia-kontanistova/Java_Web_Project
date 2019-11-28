@@ -11,7 +11,7 @@ public class RegistrarsByIdSpecification implements FileSpecification<EllipseReg
     public List<EllipseRegistrar> sortBy(List<EllipseRegistrar> items) {
         IdComparator idComparator = new IdComparator();
         items.sort(idComparator);
-        return null;
+        return items;
     }
 
 }

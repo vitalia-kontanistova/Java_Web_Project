@@ -1,10 +1,14 @@
 package by.epam.ellipse.service;
 
+import by.epam.ellipse.dao.impl.EllipseRepository;
 import by.epam.ellipse.dao.exception.DAOexception;
 import by.epam.ellipse.dao.util.EllipseParser;
 import by.epam.ellipse.dao.util.FileInfoExtractor;
 import by.epam.ellipse.entity.Ellipse;
 import by.epam.ellipse.service.exception.ServiceException;
+import by.epam.ellipse.service.registrar.EllipseParametersObserver;
+import by.epam.ellipse.service.registrar.EllipseRegistrar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,8 +23,67 @@ public class EllipseServiceImpl implements EllipseService {
         return instance;
     }
 
+
+    public boolean isEllipseExist(Ellipse ellipse) throws ServiceException {
+        ParametersServiceImpl instance = ParametersServiceImpl.getInstance();
+        double axisX;
+        double axisY;
+
+        try {
+            axisX = instance.findDeltaX(ellipse);
+            axisY = instance.findDeltaY(ellipse);
+        } catch (NullPointerException e) {
+            throw new ServiceException("EllipseServiceImpl: isEllipseExist(): null object has been passed into method: " + e.getMessage());
+        }
+        return axisX > 0.1 && axisY > 0.1;
+    }
+
+    public boolean isEllipseExist(Ellipse.Point pointA, Ellipse.Point pointB) throws ServiceException {
+        return isEllipseExist(new Ellipse(pointA, pointB));
+    }
+
+
+
+
     @Override
-    public Ellipse createFromString(String ellipseStr) throws ServiceException {
+    public void add(EllipseRegistrar ellipseRegistrar) {
+        EllipseRepository instance = new EllipseRepository();
+        instance.add(ellipseRegistrar);
+    }
+
+    @Override
+    public void addFromFile(String requestToPropFile) throws ServiceException {
+        List<Ellipse> ellipses;
+        EllipseParametersObserver parametersObserver;
+        try {
+            ellipses = createFromFile(requestToPropFile);
+            for (Ellipse ellipse : ellipses) {
+                EllipseRegistrar registrar = new EllipseRegistrar(ellipse);
+                parametersObserver = new EllipseParametersObserver(registrar);
+                add(registrar);
+            }
+        } catch (ServiceException e) {
+            throw new ServiceException("EllipseServiceImpl: addFromFile(): " + e.getMessage());
+        }
+    }
+
+
+    @Override
+    public void remove(EllipseRegistrar ellipseRegistrar) {
+
+    }
+
+    @Override
+    public void change(EllipseRegistrar ellipseRegistrar) {
+
+    }
+
+    @Override
+    public List<EllipseRegistrar> query() {
+        return null;
+    }
+
+    private Ellipse createFromString(String ellipseStr) throws ServiceException {
         EllipseParser instance = EllipseParser.getInstance();
         double[] coordinates;
 
@@ -40,7 +103,7 @@ public class EllipseServiceImpl implements EllipseService {
         return ellipse;
     }
 
-    public List<Ellipse> createFromFile(String request) throws ServiceException { //REFACTOR???
+    private List<Ellipse> createFromFile(String request) throws ServiceException { //REFACTOR???
         FileInfoExtractor instance = FileInfoExtractor.getInstance();
 
         List<Ellipse> ellipses = new ArrayList<>();
@@ -60,114 +123,4 @@ public class EllipseServiceImpl implements EllipseService {
         return ellipses;
     }
 
-    @Override
-    public boolean isCircle(Ellipse ellipse) throws ServiceException {
-        double axisX;
-        double axisY;
-        try {
-            if (isEllipseExist(ellipse)) {
-
-                axisX = findDeltaX(ellipse);
-                axisY = findDeltaY(ellipse);
-            } else throw new ServiceException("Trying to create invalid ellipse.");
-        } catch (NullPointerException e) {
-            throw new ServiceException("EllipseServiceImpl: isCircle(): " + e.getMessage());
-        }
-        return Math.abs(axisX - axisY) < 0.01;
-    }
-
-    @Override
-    public boolean isCrossX(Ellipse ellipse) throws ServiceException {
-        Ellipse.Point a;
-        Ellipse.Point b;
-
-        double xA;
-        double xB;
-
-        try {
-            a = ellipse.getPointA();
-            b = ellipse.getPointB();
-            if (isEllipseExist(ellipse)) {
-                xA = a.getX();
-                xB = b.getX();
-            } else throw new ServiceException("Trying to create invalid ellipse.");
-        } catch (NullPointerException e) {
-            throw new ServiceException("EllipseServiceImpl: isCrossX(): " + e.getMessage());
-        }
-        return (xA * xB) <= 0;
-    }
-
-    @Override
-    public boolean isCrossY(Ellipse ellipse) throws ServiceException {
-        Ellipse.Point a;
-        Ellipse.Point b;
-
-        double yA;
-        double yB;
-
-        try {
-            a = ellipse.getPointA();
-            b = ellipse.getPointB();
-
-            if (isEllipseExist(ellipse)) {
-                yA = a.getY();
-                yB = b.getY();
-            } else throw new ServiceException("Trying to create invalid ellipse.");
-        } catch (NullPointerException e) {
-            throw new ServiceException("EllipseServiceImpl: isCrossX(): " + e.getMessage());
-        }
-
-        return (yA * yB) <= 0;
-    }
-
-    @Override
-    public boolean isEllipseExist(Ellipse ellipse) throws ServiceException {
-        double axisX;
-        double axisY;
-
-        try {
-            axisX = findDeltaX(ellipse);
-            axisY = findDeltaY(ellipse);
-        } catch (NullPointerException e) {
-            throw new ServiceException("EllipseServiceImpl: isEllipseExist(): null object has been passed into method.");
-        }
-        return axisX > 0.1 && axisY > 0.1;
-    }
-
-    @Override
-    public boolean isEllipseExist(Ellipse.Point pointA, Ellipse.Point pointB) throws ServiceException {
-        return isEllipseExist(new Ellipse(pointA, pointB));
-    }
-
-    //package private
-    double findDeltaX(Ellipse ellipse) {
-        Ellipse.Point a = ellipse.getPointA();
-        Ellipse.Point b = ellipse.getPointB();
-
-        return findDeltaX(a, b);
-    }
-
-    //package private
-    double findDeltaY(Ellipse ellipse) {
-        Ellipse.Point a = ellipse.getPointA();
-        Ellipse.Point b = ellipse.getPointB();
-
-        return findDeltaY(a, b);
-    }
-
-    //package private
-    double findDeltaX(Ellipse.Point a, Ellipse.Point b) {
-        double xA = a.getX();
-        double xB = b.getX();
-
-        return Math.abs(xA - xB);
-    }
-
-    //package private
-    double findDeltaY(Ellipse.Point a, Ellipse.Point b) {
-        double yA = a.getY();
-        double yB = b.getY();
-
-        return Math.abs(yA - yB);
-    }
 }

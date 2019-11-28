@@ -5,7 +5,7 @@ import by.epam.ellipse.service.exception.ServiceException;
 import org.junit.*;
 
 
-public class ParametersServiceImplTest {
+public class EllipseParametersServiceImplTest {
     private static ParametersServiceImpl instance;
 
     private Ellipse.Point point1;

@@ -1,18 +1,19 @@
 package by.epam.ellipse.service;
 
-import by.epam.ellipse.entity.Ellipse;
 import by.epam.ellipse.service.exception.ServiceException;
+import by.epam.ellipse.service.registrar.EllipseRegistrar;
+
+import java.util.List;
 
 public interface EllipseService {
-     Ellipse createFromString(String ellipseStr) throws ServiceException;
 
-     boolean isCircle(Ellipse ellipse) throws ServiceException;
+    void add(EllipseRegistrar ellipseRegistrar) throws ServiceException;
 
-     boolean isCrossX(Ellipse ellipse) throws ServiceException;
+    void addFromFile(String requestToPropFile) throws ServiceException;
 
-     boolean isCrossY(Ellipse ellipse) throws ServiceException;
+    void remove(EllipseRegistrar ellipseRegistrar) throws ServiceException;
 
-     boolean isEllipseExist(Ellipse ellipse) throws ServiceException;
+    void change(EllipseRegistrar ellipseRegistrar) throws ServiceException;
 
-     boolean isEllipseExist(Ellipse.Point pointA, Ellipse.Point pointB) throws ServiceException;
+    List<EllipseRegistrar> query() throws ServiceException; //????????????
 }

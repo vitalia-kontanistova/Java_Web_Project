@@ -8,14 +8,12 @@ import java.util.List;
 
 public class EllipseRegistrar implements Observable {
     private EllipseServiceImpl instance = EllipseServiceImpl.getInstance();
-
     private List<Observer> ellipses = new ArrayList<>();
-
     private Ellipse ellipse;
 
 
-    public EllipseRegistrar() {
-        this.ellipse = new Ellipse();
+    public EllipseRegistrar(Ellipse ellipse) {
+        this.ellipse = ellipse;
     }
 
     @Override
@@ -74,7 +72,7 @@ public class EllipseRegistrar implements Observable {
     @Override
     public String toString() { //НУЖНО ЛИ ЗДЕСЬ (В ТАКИХ КЛАССАХ) ПЕРЕОПРЕДЕЛЯТЬ ЭТИ ТРИ МЕТОДА? ОНИ ВРОДЕ НЕ БИНЫ, НО ДАННЫЕ ХРАНЯТ.
         return "EllipseRegistrar{" +
-                ", ellipses=" + ellipses +
+                "ellipses=" + ellipses +
                 ", ellipse=" + ellipse +
                 '}';
     }

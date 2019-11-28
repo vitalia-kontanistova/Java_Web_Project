@@ -3,18 +3,22 @@ package by.epam.ellipse.entity;
 import by.epam.ellipse.service.ParametersServiceImpl;
 import by.epam.ellipse.service.exception.ServiceException;
 
-public class Parameters {
+public class EllipseParameters {
     private ParametersServiceImpl instance = ParametersServiceImpl.getInstance();
 
     private Ellipse ellipse;
     private double area;
     private double perimeter;
+    private boolean circle;
+    private boolean crossingX;
+    private boolean crossingY;
 
-    public Parameters(Ellipse ellipse) throws ServiceException {
+
+    public EllipseParameters(Ellipse ellipse) throws ServiceException {
         try {
             setEllipse(ellipse);
         } catch (ServiceException e) {
-            throw new ServiceException("Parameters: Parameters(): " + e.getMessage());
+            throw new ServiceException("EllipseParameters: EllipseParameters(): " + e.getMessage());
         }
     }
 
@@ -27,10 +31,14 @@ public class Parameters {
         try {
             setArea(this.ellipse);
             setPerimeter(this.ellipse);
+            setCircle(this.ellipse);
+            setCrossingX(this.ellipse);
+            setCrossingY(this.ellipse);
         } catch (ServiceException e) {
-            throw new ServiceException("Parameters: setEllipse(): " + e.getMessage());
+            throw new ServiceException("EllipseParameters: setEllipse(): " + e.getMessage());
         }
     }
+
 
     public double getArea() {
         return area;
@@ -40,6 +48,19 @@ public class Parameters {
         return perimeter;
     }
 
+    public boolean isCircle() {
+        return circle;
+    }
+
+    public boolean isCrossingX() {
+        return crossingX;
+    }
+
+    public boolean isCrossingY() {
+        return crossingY;
+    }
+
+
     private void setArea(Ellipse ellipse) throws ServiceException {
         this.area = instance.findArea(ellipse);
     }
@@ -48,12 +69,27 @@ public class Parameters {
         this.perimeter = instance.findPerimeter(ellipse);
     }
 
+    private void setCircle(Ellipse ellipse) throws ServiceException {
+        this.circle = instance.isCircle(ellipse);
+    }
+
+    private void setCrossingX(Ellipse ellipse) throws ServiceException {
+        this.crossingX = instance.isCrossX(ellipse);
+    }
+
+    private void setCrossingY(Ellipse ellipse) throws ServiceException {
+        this.crossingY = instance.isCrossY(ellipse);
+    }
+
     @Override
     public String toString() {
-        return "Parameters{" +
+        return "EllipseParameters{" +
                 "ellipse=" + ellipse +
                 ", area=" + area +
                 ", perimeter=" + perimeter +
+                ", circle=" + circle +
+                ", crossingX=" + crossingX +
+                ", crossingY=" + crossingY +
                 '}';
     }
 
@@ -61,10 +97,13 @@ public class Parameters {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Parameters that = (Parameters) o;
+        EllipseParameters that = (EllipseParameters) o;
         return Double.compare(that.area, area) == 0 &&
                 Double.compare(that.perimeter, perimeter) == 0 &&
-                ellipse.equals(that.ellipse);
+                ellipse.equals(that.ellipse) &&
+                circle == that.circle &&
+                crossingX == that.crossingX &&
+                crossingY == that.crossingY;
     }
 
     @Override
@@ -73,6 +112,9 @@ public class Parameters {
         result = result * 31 + (int) Double.doubleToLongBits(area);
         result = result * 31 + (int) Double.doubleToLongBits(perimeter);
         result = result * 31 + ellipse.hashCode();
+        result = result * 31 + ((circle) ? 1 : 0);
+        result = result * 31 + ((crossingX) ? 1 : 0);
+        result = result * 31 + ((crossingY) ? 1 : 0);
         return result;
     }
 }

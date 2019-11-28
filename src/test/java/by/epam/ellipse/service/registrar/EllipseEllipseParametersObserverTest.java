@@ -1,14 +1,14 @@
 package by.epam.ellipse.service.registrar;
 
 import by.epam.ellipse.entity.Ellipse;
-import by.epam.ellipse.entity.Parameters;
+import by.epam.ellipse.entity.EllipseParameters;
 import by.epam.ellipse.service.exception.ServiceException;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class EllipseParametersObserverTest {
+public class EllipseEllipseParametersObserverTest {
     private EllipseParametersObserver ellipseParametersObserver;
     private EllipseRegistrar ellipseRegistrar;
 
@@ -68,12 +68,12 @@ public class EllipseParametersObserverTest {
 
     @Test
     public void returnParameters() {
-        Parameters expected;
-        Parameters actual;
+        EllipseParameters expected;
+        EllipseParameters actual;
 
         try {
             actual = ellipseParametersObserver.returnParameters();
-            expected = new Parameters(ellipse1);
+            expected = new EllipseParameters(ellipse1);
             Assert.assertEquals(expected, actual);
         } catch (ServiceException e) {
             e.printStackTrace();
@@ -82,13 +82,13 @@ public class EllipseParametersObserverTest {
 
     @Test
     public void returnParameters1() {
-        Parameters expected;
-        Parameters actual;
+        EllipseParameters expected;
+        EllipseParameters actual;
 
         try {
             ellipseRegistrar.setEllipse(ellipse2);
             actual = ellipseParametersObserver.returnParameters();
-            expected = new Parameters(ellipse2);
+            expected = new EllipseParameters(ellipse2);
             Assert.assertEquals(expected, actual);
         } catch (ServiceException e) {
             e.printStackTrace();

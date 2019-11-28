@@ -1,6 +1,6 @@
 package by.epam.ellipse.service;
 
-import by.epam.ellipse.dao.impl.EllipseRepository;
+import by.epam.ellipse.dao.impl.EllipsesFileRepository;
 import by.epam.ellipse.dao.exception.DAOexception;
 import by.epam.ellipse.dao.util.EllipseParser;
 import by.epam.ellipse.dao.util.FileManipulator;
@@ -46,9 +46,13 @@ public class EllipseServiceImpl implements EllipseService {
 
 
     @Override
-    public void add(EllipseRegistrar ellipseRegistrar) {
-        EllipseRepository instance = new EllipseRepository();
-        instance.add(ellipseRegistrar);
+    public void add(EllipseRegistrar ellipseRegistrar) throws DAOexception {
+        EllipsesFileRepository instance = new EllipsesFileRepository();
+        try {
+            instance.add(ellipseRegistrar);
+        } catch (DAOexception e) {
+            throw new DAOexception ("EllipseServiceImpl: add(): " + e.getMessage());
+        }
     }
 
     @Override
@@ -62,7 +66,7 @@ public class EllipseServiceImpl implements EllipseService {
                 parametersObserver = new EllipseParametersObserver(registrar);
                 add(registrar);
             }
-        } catch (ServiceException e) {
+        } catch (DAOexception| ServiceException e) {
             throw new ServiceException("EllipseServiceImpl: addFromFile(): " + e.getMessage());
         }
     }

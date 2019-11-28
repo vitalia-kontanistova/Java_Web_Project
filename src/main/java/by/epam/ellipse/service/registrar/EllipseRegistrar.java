@@ -100,4 +100,5 @@ public class EllipseRegistrar implements Observable {
         result = result * 31 + ellipse.hashCode();
         return result;
     }
+
 }

@@ -59,7 +59,7 @@ public class EllipseParser {
         return id;
     }
 
-    public String turnIntoEnty(EllipseRegistrar registrar, int id) {
+    public String turnIntoEntry(EllipseRegistrar registrar, int id) {
         Ellipse ellipse = registrar.returnEllipse();
         List<Observer> observers = registrar.returnObservers();
 
@@ -80,7 +80,7 @@ public class EllipseParser {
         boolean crossingX = parameters.isCrossingX();
         boolean crossingY = parameters.isCrossingY();
 
-        return  "Ellipse={id=" + id +
+        return "Ellipse={id=" + id +
                 ", pointA={x=" + aX + ", y=" + aY + "}" +
                 ", pointB={x=" + bX + ", y=" + bY + "}}, " +
                 "Parameters={area=" + area + ", perimeter=" + perimeter +

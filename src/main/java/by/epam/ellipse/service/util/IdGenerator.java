@@ -2,12 +2,12 @@ package by.epam.ellipse.service.util;
 
 import by.epam.ellipse.dao.exception.DAOexception;
 import by.epam.ellipse.dao.util.EllipseParser;
-import by.epam.ellipse.dao.util.FileInfoExtractor;
+import by.epam.ellipse.dao.util.FileManipulator;
 import by.epam.ellipse.service.exception.ServiceException;
 import java.util.List;
 
 public class IdGenerator {
-    private FileInfoExtractor instanceFIE = FileInfoExtractor.getInstance();
+    private FileManipulator instanceFIE = FileManipulator.getInstance();
     private EllipseParser instanceEP = EllipseParser.getInstance();
 
     private static IdGenerator instance = new IdGenerator();

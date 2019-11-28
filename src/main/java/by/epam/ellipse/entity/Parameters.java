@@ -3,7 +3,7 @@ package by.epam.ellipse.entity;
 import by.epam.ellipse.service.ParametersServiceImpl;
 import by.epam.ellipse.service.exception.ServiceException;
 
-public class EllipseParameters {
+public class Parameters {
     private ParametersServiceImpl instance = ParametersServiceImpl.getInstance();
 
     private Ellipse ellipse;
@@ -14,11 +14,11 @@ public class EllipseParameters {
     private boolean crossingY;
 
 
-    public EllipseParameters(Ellipse ellipse) throws ServiceException {
+    public Parameters(Ellipse ellipse) throws ServiceException {
         try {
             setEllipse(ellipse);
         } catch (ServiceException e) {
-            throw new ServiceException("EllipseParameters: EllipseParameters(): " + e.getMessage());
+            throw new ServiceException("Parameters: Parameters(): " + e.getMessage());
         }
     }
 
@@ -35,7 +35,7 @@ public class EllipseParameters {
             setCrossingX(this.ellipse);
             setCrossingY(this.ellipse);
         } catch (ServiceException e) {
-            throw new ServiceException("EllipseParameters: setEllipse(): " + e.getMessage());
+            throw new ServiceException("Parameters: setEllipse(): " + e.getMessage());
         }
     }
 
@@ -83,7 +83,7 @@ public class EllipseParameters {
 
     @Override
     public String toString() {
-        return "EllipseParameters{" +
+        return "Parameters{" +
                 "ellipse=" + ellipse +
                 ", area=" + area +
                 ", perimeter=" + perimeter +
@@ -97,7 +97,7 @@ public class EllipseParameters {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EllipseParameters that = (EllipseParameters) o;
+        Parameters that = (Parameters) o;
         return Double.compare(that.area, area) == 0 &&
                 Double.compare(that.perimeter, perimeter) == 0 &&
                 ellipse.equals(that.ellipse) &&

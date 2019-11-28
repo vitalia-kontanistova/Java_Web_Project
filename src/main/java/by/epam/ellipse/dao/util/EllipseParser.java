@@ -1,7 +1,12 @@
 package by.epam.ellipse.dao.util;
 
 import by.epam.ellipse.dao.exception.DAOexception;
-import by.epam.ellipse.service.exception.ServiceException;
+import by.epam.ellipse.entity.Ellipse;
+import by.epam.ellipse.entity.Parameters;
+import by.epam.ellipse.service.registrar.EllipseRegistrar;
+import by.epam.ellipse.service.registrar.Observer;
+
+import java.util.List;
 
 public class EllipseParser {
     private static final EllipseParser instance = new EllipseParser();
@@ -54,4 +59,34 @@ public class EllipseParser {
         return id;
     }
 
+    public String turnIntoEnty(EllipseRegistrar registrar, int id) {
+        Ellipse ellipse = registrar.returnEllipse();
+        List<Observer> observers = registrar.returnObservers();
+
+        Ellipse.Point pointA = ellipse.getPointA();
+        double aX = pointA.getX();
+        double aY = pointA.getY();
+
+        Ellipse.Point pointB = ellipse.getPointB();
+        double bX = pointB.getX();
+        double bY = pointB.getY();
+
+
+        Parameters parameters = (Parameters) observers.get(0);
+        double area = parameters.getArea();
+        double perimeter = parameters.getPerimeter();
+
+        boolean circle = parameters.isCircle();
+        boolean crossingX = parameters.isCrossingX();
+        boolean crossingY = parameters.isCrossingY();
+
+        return  "Ellipse={id=" + id +
+                ", pointA={x=" + aX + ", y=" + aY + "}" +
+                ", pointB={x=" + bX + ", y=" + bY + "}}, " +
+                "Parameters={area=" + area + ", perimeter=" + perimeter +
+                ", circle=" + circle +
+                ", crossingX=" + crossingX +
+                ", crossingY=" + crossingY +
+                "}} ";
+    }
 }

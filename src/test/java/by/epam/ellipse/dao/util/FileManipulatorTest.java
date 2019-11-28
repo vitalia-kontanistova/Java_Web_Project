@@ -5,14 +5,14 @@ import org.junit.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileInfoExtractorTest {
-    private static FileInfoExtractor instance;
+public class FileManipulatorTest {
+    private static FileManipulator instance;
     private static String request;
     private static List<String> expected;
 
     @Before
     public void setUp() {
-        instance = FileInfoExtractor.getInstance();
+        instance = FileManipulator.getInstance();
 
         expected = new ArrayList<>();
         expected.add("-1.0 -2.0 5.0 6.0");

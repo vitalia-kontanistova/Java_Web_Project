@@ -3,7 +3,7 @@ package by.epam.ellipse.service;
 import by.epam.ellipse.dao.impl.EllipseRepository;
 import by.epam.ellipse.dao.exception.DAOexception;
 import by.epam.ellipse.dao.util.EllipseParser;
-import by.epam.ellipse.dao.util.FileInfoExtractor;
+import by.epam.ellipse.dao.util.FileManipulator;
 import by.epam.ellipse.entity.Ellipse;
 import by.epam.ellipse.service.exception.ServiceException;
 import by.epam.ellipse.service.registrar.EllipseParametersObserver;
@@ -104,7 +104,7 @@ public class EllipseServiceImpl implements EllipseService {
     }
 
     private List<Ellipse> createFromFile(String request) throws ServiceException { //REFACTOR???
-        FileInfoExtractor instance = FileInfoExtractor.getInstance();
+        FileManipulator instance = FileManipulator.getInstance();
 
         List<Ellipse> ellipses = new ArrayList<>();
         List<String> ellipsesStr;

@@ -3,14 +3,16 @@ package by.epam.ellipse.service.registrar;
 import by.epam.ellipse.entity.Ellipse;
 import by.epam.ellipse.service.EllipseServiceImpl;
 import by.epam.ellipse.service.exception.ServiceException;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class EllipseRegistrar implements Observable {
-    private EllipseServiceImpl instance = EllipseServiceImpl.getInstance();
-    private List<Observer> ellipses = new ArrayList<>();
-    private Ellipse ellipse;
 
+    private EllipseServiceImpl instance = EllipseServiceImpl.getInstance();
+
+    private List<Observer> observers = new ArrayList<>();
+    private Ellipse ellipse;
 
     public EllipseRegistrar(Ellipse ellipse) {
         this.ellipse = ellipse;
@@ -18,14 +20,14 @@ public class EllipseRegistrar implements Observable {
 
     @Override
     public void add(Observer observer) {
-        ellipses.add(observer);
+        observers.add(observer);
     }
 
     @Override
     public void notifyObservers() throws ServiceException {
-        for (Observer o : ellipses) {
+        for (Observer o : observers) {
             try {
-                o.update();
+                o.update(this.ellipse);
             } catch (ServiceException e) {
                 throw new ServiceException("EllipseRegistrar: notifyObservers(): " + e.getMessage());
             }
@@ -63,16 +65,19 @@ public class EllipseRegistrar implements Observable {
         setPoints(ellipse.getPointA(), pointB);
     }
 
-    //package private
-    Ellipse returnEllipse() {
+    public Ellipse returnEllipse() {
         return this.ellipse;
+    }
+
+    public List<Observer> returnObservers() {
+        return this.observers;
     }
 
 
     @Override
     public String toString() { //НУЖНО ЛИ ЗДЕСЬ (В ТАКИХ КЛАССАХ) ПЕРЕОПРЕДЕЛЯТЬ ЭТИ ТРИ МЕТОДА? ОНИ ВРОДЕ НЕ БИНЫ, НО ДАННЫЕ ХРАНЯТ.
         return "EllipseRegistrar{" +
-                "ellipses=" + ellipses +
+                "observers=" + observers +
                 ", ellipse=" + ellipse +
                 '}';
     }
@@ -83,7 +88,7 @@ public class EllipseRegistrar implements Observable {
         if (o == null || getClass() != o.getClass()) return false;
         EllipseRegistrar that = (EllipseRegistrar) o;
 
-        return ellipses.equals(that.ellipses) &&
+        return observers.equals(that.observers) &&
                 ellipse.equals(that.ellipse);
     }
 
@@ -91,7 +96,7 @@ public class EllipseRegistrar implements Observable {
     @Override
     public int hashCode() {
         int result = 17;
-        result = result * 31 + ellipses.hashCode();
+        result = result * 31 + observers.hashCode();
         result = result * 31 + ellipse.hashCode();
         return result;
     }

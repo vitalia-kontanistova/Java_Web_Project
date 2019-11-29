@@ -1,4 +1,4 @@
-package by.epam.ellipse.dao;
+package by.epam.ellipse.repository;
 
 import by.epam.ellipse.dao.exception.DAOexception;
 

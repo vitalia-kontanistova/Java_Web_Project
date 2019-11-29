@@ -1,17 +1,13 @@
 package by.epam.ellipse.service;
 
 import by.epam.ellipse.entity.Ellipse;
-import by.epam.ellipse.service.exception.ServiceException;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class EllipseServiceImplTest {
-    private static EllipseServiceImpl instance;
+    private static EllipseRegistrarServiceImpl instance;
     private static String request;
 
     private Ellipse.Point point1;
@@ -30,7 +26,7 @@ public class EllipseServiceImplTest {
 
 //    @Before
 //    public void setUp() {
-//        instance = EllipseServiceImpl.getInstance();
+//        instance = EllipseRegistrarServiceImpl.getInstance();
 //
 //        point1 = new Ellipse.Point(-1.0, -2.0);
 //        point2 = new Ellipse.Point(5.0, 6.0);

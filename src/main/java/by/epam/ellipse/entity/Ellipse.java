@@ -1,7 +1,5 @@
 package by.epam.ellipse.entity;
 
-import by.epam.ellipse.service.util.IdGenerator;
-
 public class Ellipse {
     private int id;
     private Point pointA;
@@ -68,7 +66,7 @@ public class Ellipse {
     }
 
     public Ellipse() {
-        this(new Point(-1.0,-1.0),new Point(1.0,1.0));
+        this(new Point(-1.0, -1.0), new Point(1.0, 1.0));
     }
 
     public int getId() {
@@ -122,6 +120,4 @@ public class Ellipse {
 
         return result;
     }
-
-// id может поломать сравнениее объектов и вычисление хэш значения. проверить этот момент
 }

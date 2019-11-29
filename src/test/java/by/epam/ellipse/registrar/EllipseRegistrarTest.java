@@ -1,15 +1,10 @@
-package by.epam.ellipse.service.registrar;
+package by.epam.ellipse.registrar;
 
 import by.epam.ellipse.entity.Ellipse;
-import by.epam.ellipse.service.exception.ServiceException;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 
 public class EllipseRegistrarTest {
-    private EllipseRegistrar ellipseRegistrar;
+    private EllipseObservable ellipseObservable;
 
     private Ellipse.Point point1;
     private Ellipse.Point point2;
@@ -26,7 +21,7 @@ public class EllipseRegistrarTest {
 
 //    @Before
 //    public void setUp() {
-//        ellipseRegistrar = new EllipseRegistrar();
+//        ellipseObservable = new EllipseObservable();
 //
 //        point1 = new Ellipse.Point(-1.0, -1.0);
 //        point2 = new Ellipse.Point(1.0, 1.0);
@@ -44,7 +39,7 @@ public class EllipseRegistrarTest {
 //
 //    @After
 //    public void shutDown() {
-//        ellipseRegistrar = null;
+//        ellipseObservable = null;
 //    }
 //
 //
@@ -54,8 +49,8 @@ public class EllipseRegistrarTest {
 //        Ellipse expected;
 //
 //        try {
-//            ellipseRegistrar.setEllipse(ellipse2);
-//            actual = ellipseRegistrar.returnEllipse();
+//            ellipseObservable.setEllipse(ellipse2);
+//            actual = ellipseObservable.returnEllipse();
 //            expected = ellipse2;
 //            Assert.assertEquals(expected, actual);
 //        } catch (ServiceException e) {
@@ -66,7 +61,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setEllipse_NULL_POINT_A() {
 //        try {
-//            ellipseRegistrar.setEllipse(ellipse3);
+//            ellipseObservable.setEllipse(ellipse3);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -76,7 +71,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setEllipse_NULL_POINT_B() {
 //        try {
-//            ellipseRegistrar.setEllipse(ellipse4);
+//            ellipseObservable.setEllipse(ellipse4);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -86,7 +81,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setEllipse_NULL_POINTS() {
 //        try {
-//            ellipseRegistrar.setEllipse(ellipse5);
+//            ellipseObservable.setEllipse(ellipse5);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -96,7 +91,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setEllipse_NULL() {
 //        try {
-//            ellipseRegistrar.setEllipse(ellipse7);
+//            ellipseObservable.setEllipse(ellipse7);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -106,7 +101,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setEllipse_INVALID() {
 //        try {
-//            ellipseRegistrar.setEllipse(ellipse6);
+//            ellipseObservable.setEllipse(ellipse6);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -120,8 +115,8 @@ public class EllipseRegistrarTest {
 //        Ellipse expected;
 //
 //        try {
-//            ellipseRegistrar.setPoints(point3, point4);
-//            actual = ellipseRegistrar.returnEllipse();
+//            ellipseObservable.setPoints(point3, point4);
+//            actual = ellipseObservable.returnEllipse();
 //            expected = new Ellipse(new Ellipse.Point(10.0, 11.0), new Ellipse.Point(-10.0, -11.0));
 //            Assert.assertEquals(expected, actual);
 //        } catch (ServiceException e) {
@@ -132,7 +127,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setPoints_NULL_POINT_A() {
 //        try {
-//            ellipseRegistrar.setPoints(null, point1);
+//            ellipseObservable.setPoints(null, point1);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -142,7 +137,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setPoints_NULL_POINT_B() {
 //        try {
-//            ellipseRegistrar.setPoints(point1, null);
+//            ellipseObservable.setPoints(point1, null);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -152,7 +147,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setPoints_NULL_POINTS() {
 //        try {
-//            ellipseRegistrar.setPoints(null, null);
+//            ellipseObservable.setPoints(null, null);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -162,7 +157,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setPoints_INVALID() {
 //        try {
-//            ellipseRegistrar.setPoints(point1, point1);
+//            ellipseObservable.setPoints(point1, point1);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -176,8 +171,8 @@ public class EllipseRegistrarTest {
 //        Ellipse expected;
 //
 //        try {
-//            ellipseRegistrar.setPointA(point3);
-//            actual = ellipseRegistrar.returnEllipse();
+//            ellipseObservable.setPointA(point3);
+//            actual = ellipseObservable.returnEllipse();
 //            expected = new Ellipse(new Ellipse.Point(10.0, 11.0), new Ellipse().getPointB());
 //            Assert.assertEquals(expected, actual);
 //        } catch (ServiceException e) {
@@ -188,7 +183,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setPointA_NULL_POINT() {
 //        try {
-//            ellipseRegistrar.setPointA(null);
+//            ellipseObservable.setPointA(null);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -198,7 +193,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setPointA_INVALID() {
 //        try {
-//            ellipseRegistrar.setPointA(point2);
+//            ellipseObservable.setPointA(point2);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -212,8 +207,8 @@ public class EllipseRegistrarTest {
 //        Ellipse expected;
 //
 //        try {
-//            ellipseRegistrar.setPointB(point3);
-//            actual = ellipseRegistrar.returnEllipse();
+//            ellipseObservable.setPointB(point3);
+//            actual = ellipseObservable.returnEllipse();
 //            expected = new Ellipse(new Ellipse().getPointA(), new Ellipse.Point(10.0, 11.0));
 //            Assert.assertEquals(expected, actual);
 //        } catch (ServiceException e) {
@@ -224,7 +219,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setPointB_NULL_POINT() {
 //        try {
-//            ellipseRegistrar.setPointB(null);
+//            ellipseObservable.setPointB(null);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());
@@ -234,7 +229,7 @@ public class EllipseRegistrarTest {
 //    @Test
 //    public void setPointB_INVALID() {
 //        try {
-//            ellipseRegistrar.setPointB(point1);
+//            ellipseObservable.setPointB(point1);
 //            Assert.fail("Expected ServiceException");
 //        } catch (ServiceException e) {
 //            Assert.assertNotEquals("", e.getMessage());

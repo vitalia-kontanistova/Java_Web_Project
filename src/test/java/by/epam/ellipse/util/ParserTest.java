@@ -1,10 +1,10 @@
-package by.epam.ellipse.dao.util;
+package by.epam.ellipse.util;
 
 import by.epam.ellipse.dao.exception.DAOexception;
 import org.junit.*;
 
-public class EllipseParserTest {
-    private static EllipseParser instance;
+public class ParserTest {
+    private static Parser instance;
 
     private static String coordinates1;
     private static String coordinates2;
@@ -13,7 +13,7 @@ public class EllipseParserTest {
 
     @BeforeClass
     public static void setUp() {
-        instance = EllipseParser.getInstance();
+        instance = Parser.getInstance();
 
         coordinates1 = "-10.0 5.0 10.0 -10.0";
         coordinates2 = "-10.c0 0.0 -0.5 0.6";

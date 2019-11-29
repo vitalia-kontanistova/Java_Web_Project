@@ -1,4 +1,4 @@
-package by.epam.ellipse.dao.util;
+package by.epam.ellipse.util;
 
 import by.epam.ellipse.dao.exception.DAOexception;
 import org.junit.*;

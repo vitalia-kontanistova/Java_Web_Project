@@ -1,29 +1,40 @@
 package by.epam.ellipse;
 
 
+import by.epam.ellipse.entity.Ellipse;
+import by.epam.ellipse.entity.Parameters;
+import by.epam.ellipse.registrar.EllipseObservable;
+import by.epam.ellipse.registrar.ParametersObserver;
+import by.epam.ellipse.service.exception.ServiceException;
+import by.epam.ellipse.service.impl.EllipseServiceImpl;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ServiceException {
 
-        double aX = 0;
-        double aY = 0;
-        double bX = 5;
-        double bY = 10;
+        Ellipse.Point p1 = new Ellipse.Point(0, 0);
+        Ellipse.Point p2 = new Ellipse.Point(10, 10);
+        Ellipse.Point p3 = new Ellipse.Point(-5, -3);
+        Ellipse.Point p4 = new Ellipse.Point(15, 7);
 
-        int id = 5;
-        double area = 15;
-        double perimeter = 78;
-        boolean circle = false;
-        boolean crossingX = true;
-        boolean crossingY = true;
+        Ellipse e1 = new Ellipse(p1, p2);
+        Ellipse e2 = new Ellipse(p3, p4);
 
-        String entry = "Ellipse={id=" + id +
-                ", pointA={x=" + aX + ", y=" + aY + "}" +
-                ", pointB={x=" + bX + ", y=" + bY + "}}, " +
-                "Parameters={area=" + area + ", perimeter=" + perimeter +
-                ", circle=" + circle +
-                ", crossingX=" + crossingX +
-                ", crossingY=" + crossingY +
-                "}} ";
-        System.out.println(entry);
+        EllipseObservable eOb = new EllipseObservable();
+        ParametersObserver pOb = new ParametersObserver(eOb);
+
+        eOb.setEllipse(e1, EllipseServiceImpl.getInstance());
+
+        Parameters p = pOb.getParameters();
+
+        System.out.println(p);
+
+//        eOb.setEllipse(e2);
+//        eOb.setPoints(p3,p4);
+
+        eOb.setPointA(p3);
+        System.out.println(p);
+
+        eOb.setPointB(p4);
+        System.out.println(p);
     }
 }

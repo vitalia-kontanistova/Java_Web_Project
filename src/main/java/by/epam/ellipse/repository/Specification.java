@@ -1,4 +1,4 @@
-package by.epam.ellipse.dao;
+package by.epam.ellipse.repository;
 
 public interface Specification {
 }

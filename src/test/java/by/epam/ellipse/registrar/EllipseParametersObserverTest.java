@@ -1,16 +1,10 @@
-package by.epam.ellipse.service.registrar;
+package by.epam.ellipse.registrar;
 
 import by.epam.ellipse.entity.Ellipse;
-import by.epam.ellipse.entity.Parameters;
-import by.epam.ellipse.service.exception.ServiceException;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 public class EllipseParametersObserverTest {
-    private EllipseParametersObserver ellipseParametersObserver;
-    private EllipseRegistrar ellipseRegistrar;
+    private ParametersObserver parametersObserver;
+    private EllipseObservable ellipseObservable;
 
 
     private Ellipse.Point point1;
@@ -23,9 +17,9 @@ public class EllipseParametersObserverTest {
 
 //    @Before
 //    public void setUp() {
-//        ellipseRegistrar = new EllipseRegistrar();
+//        ellipseObservable = new EllipseObservable();
 //        try {
-//            ellipseParametersObserver = new EllipseParametersObserver(ellipseRegistrar);
+//            parametersObserver = new ParametersObserver(ellipseObservable);
 //        } catch (ServiceException e) {
 //            e.printStackTrace();
 //        }
@@ -41,15 +35,15 @@ public class EllipseParametersObserverTest {
 //
 //    @After
 //    public void shutDown() {
-//        ellipseRegistrar = null;
-//        ellipseParametersObserver = null;
+//        ellipseObservable = null;
+//        parametersObserver = null;
 //    }
 //
 //
 //    @Test
 //    public void returnEllipse() {
 //        Ellipse expected = ellipse1;
-//        Ellipse actual = ellipseParametersObserver.returnEllipse();
+//        Ellipse actual = parametersObserver.returnEllipse();
 //        Assert.assertEquals(expected, actual);
 //    }
 //
@@ -57,12 +51,12 @@ public class EllipseParametersObserverTest {
 //    @Test
 //    public void returnEllipse1() {
 //        try {
-//            ellipseRegistrar.setEllipse(ellipse2);
+//            ellipseObservable.setEllipse(ellipse2);
 //        } catch (ServiceException e) {
 //            e.printStackTrace();
 //        }
 //        Ellipse expected = ellipse2;
-//        Ellipse actual = ellipseParametersObserver.returnEllipse();
+//        Ellipse actual = parametersObserver.returnEllipse();
 //        Assert.assertEquals(expected, actual);
 //    }
 //
@@ -72,7 +66,7 @@ public class EllipseParametersObserverTest {
 //        Parameters actual;
 //
 //        try {
-//            actual = ellipseParametersObserver.returnParameters();
+//            actual = parametersObserver.returnParameters();
 //            expected = new Parameters(ellipse1);
 //            Assert.assertEquals(expected, actual);
 //        } catch (ServiceException e) {
@@ -86,8 +80,8 @@ public class EllipseParametersObserverTest {
 //        Parameters actual;
 //
 //        try {
-//            ellipseRegistrar.setEllipse(ellipse2);
-//            actual = ellipseParametersObserver.returnParameters();
+//            ellipseObservable.setEllipse(ellipse2);
+//            actual = parametersObserver.returnParameters();
 //            expected = new Parameters(ellipse2);
 //            Assert.assertEquals(expected, actual);
 //        } catch (ServiceException e) {

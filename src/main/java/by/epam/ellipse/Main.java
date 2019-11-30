@@ -23,13 +23,15 @@ public class Main {
         ParametersObserver pOb = new ParametersObserver(eOb);
 
         eOb.setEllipse(e1, EllipseServiceImpl.getInstance());
-
         Parameters p = pOb.getParameters();
 
         System.out.println(p);
 
-//        eOb.setEllipse(e2);
-//        eOb.setPoints(p3,p4);
+        eOb.setEllipse(e2, EllipseServiceImpl.getInstance());
+        System.out.println(p);
+
+        eOb.setPoints(p1, p2, EllipseServiceImpl.getInstance());
+        System.out.println(p);
 
         eOb.setPointA(p3);
         System.out.println(p);

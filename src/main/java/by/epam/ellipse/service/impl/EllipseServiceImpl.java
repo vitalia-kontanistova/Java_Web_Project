@@ -20,7 +20,6 @@ public class EllipseServiceImpl implements EllipseService {
         return instance;
     }
 
-
     @Override
     public List<Ellipse> createFromFile(String requestToPropFile, FileManipulator fileManipulator) throws ServiceException {
 

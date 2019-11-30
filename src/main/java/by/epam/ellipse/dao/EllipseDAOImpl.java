@@ -10,13 +10,11 @@ import java.util.List;
 
 public class EllipseDAOImpl implements EllipseDAO {
     @Override
-    public List<Ellipse> createFromFile(String requestToPropFile) throws DAOexception {
-        EllipseServiceImpl ellipseService = EllipseServiceImpl.getInstance();
+    public List<Ellipse> createFromFile(String requestToPropFile, EllipseServiceImpl ellipseService) throws DAOexception {
         try {
             return ellipseService.createFromFile(requestToPropFile, FileManipulator.getInstance());
         } catch (ServiceException e) {
             throw new DAOexception("EllipseDAOImpl: createFromFile(): " + e.getMessage());
         }
     }
-
 }

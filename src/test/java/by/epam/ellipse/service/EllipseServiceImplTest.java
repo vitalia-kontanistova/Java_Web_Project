@@ -7,23 +7,23 @@ import java.util.List;
 
 
 public class EllipseServiceImplTest {
-    private static EllipseRegistrarServiceImpl instance;
-    private static String request;
-
-    private Ellipse.Point point1;
-    private Ellipse.Point point2;
-    private Ellipse.Point point3;
-    private Ellipse.Point point4;
-    private Ellipse.Point point5;
-    private Ellipse.Point point6;
-
-    private Ellipse ellipse1;
-    private Ellipse ellipse2;
-    private Ellipse ellipse3;
-    private Ellipse ellipse4;
-
-    private List<Ellipse> expected = new ArrayList<>();
-
+//    private static EllipseRegistrarServiceImpl instance;
+//    private static String request;
+//
+//    private Ellipse.Point point1;
+//    private Ellipse.Point point2;
+//    private Ellipse.Point point3;
+//    private Ellipse.Point point4;
+//    private Ellipse.Point point5;
+//    private Ellipse.Point point6;
+//
+//    private Ellipse ellipse1;
+//    private Ellipse ellipse2;
+//    private Ellipse ellipse3;
+//    private Ellipse ellipse4;
+//
+//    private List<Ellipse> expected = new ArrayList<>();
+//
 //    @Before
 //    public void setUp() {
 //        instance = EllipseRegistrarServiceImpl.getInstance();

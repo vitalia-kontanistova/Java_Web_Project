@@ -6,11 +6,11 @@ import static org.junit.Assert.*;
 
 public class ParametersObserverTest {
 
-    @Test
-    public void returnParameters() {
-    }
-
-    @Test
-    public void update() {
-    }
+//    @Test
+//    public void returnParameters() {
+//    }
+//
+//    @Test
+//    public void update() {
+//    }
 }

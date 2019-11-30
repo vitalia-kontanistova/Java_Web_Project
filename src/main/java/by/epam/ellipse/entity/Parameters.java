@@ -1,6 +1,7 @@
 package by.epam.ellipse.entity;
 
 public class Parameters {
+
     private Ellipse ellipse;
     private double area;
     private double perimeter;
@@ -13,7 +14,7 @@ public class Parameters {
         setEllipse(ellipse);
     }
 
-    public Parameters( ) {
+    public Parameters() {
         this(new Ellipse());
     }
 
@@ -24,7 +25,6 @@ public class Parameters {
     public void setEllipse(Ellipse ellipse) {
         this.ellipse = ellipse;
     }
-
 
     public double getArea() {
         return area;
@@ -45,7 +45,6 @@ public class Parameters {
     public boolean isCrossingY() {
         return crossingY;
     }
-
 
     public void setArea(double area) {
         this.area = area;

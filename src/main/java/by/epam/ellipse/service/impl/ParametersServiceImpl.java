@@ -18,7 +18,7 @@ public class ParametersServiceImpl implements ParametersService {
     }
 
     @Override
-    public Parameters create(Ellipse ellipse, EllipseServiceImpl ellipseServiceImpl) throws ServiceException {
+    public Parameters createParameters(Ellipse ellipse, EllipseServiceImpl ellipseServiceImpl) throws ServiceException {
         try {
             if (ellipseServiceImpl.isEllipseExist(ellipse, ParametersServiceImpl.getInstance())) {
 
@@ -31,9 +31,9 @@ public class ParametersServiceImpl implements ParametersService {
 
                 return parameters;
 
-            } else throw new ServiceException("Trying to createFromFile invalid ellipse.");
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (ServiceException e) {
-            throw new ServiceException("ParametersServiceImpl: create(): " + e.getMessage());
+            throw new ServiceException("ParametersServiceImpl: createParameters(): " + e.getMessage());
         }
     }
 
@@ -49,12 +49,11 @@ public class ParametersServiceImpl implements ParametersService {
                 parameters.setCrossingX(isCrossX(ellipse, ellipseServiceImpl));
                 parameters.setCrossingY(isCrossY(ellipse, ellipseServiceImpl));
 
-            } else throw new ServiceException("Trying to createFromFile invalid ellipse.");
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (ServiceException e) {
-            throw new ServiceException("ParametersServiceImpl: create(): " + e.getMessage());
+            throw new ServiceException("ParametersServiceImpl: createParameters(): " + e.getMessage());
         }
     }
-
 
     public double findPerimeter(Ellipse ellipse, EllipseServiceImpl ellipseServiceImpl) throws ServiceException {
         try {
@@ -146,5 +145,4 @@ public class ParametersServiceImpl implements ParametersService {
 
         return Math.abs(a.getY() - b.getY());
     }
-
 }

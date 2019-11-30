@@ -1,4 +1,8 @@
 package by.epam.ellipse.repository;
 
-public interface Specification {
+import java.util.List;
+
+public interface Specification<T> {
+    List<T> sortBy(List<T> items);
+
 }

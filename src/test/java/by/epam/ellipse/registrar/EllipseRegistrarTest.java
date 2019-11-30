@@ -4,21 +4,21 @@ import by.epam.ellipse.entity.Ellipse;
 
 
 public class EllipseRegistrarTest {
-    private EllipseObservable ellipseObservable;
-
-    private Ellipse.Point point1;
-    private Ellipse.Point point2;
-    private Ellipse.Point point3;
-    private Ellipse.Point point4;
-
-    private Ellipse ellipse1;
-    private Ellipse ellipse2;
-    private Ellipse ellipse3;
-    private Ellipse ellipse4;
-    private Ellipse ellipse5;
-    private Ellipse ellipse6;
-    private Ellipse ellipse7;
-
+//    private EllipseObservable ellipseObservable;
+//
+//    private Ellipse.Point point1;
+//    private Ellipse.Point point2;
+//    private Ellipse.Point point3;
+//    private Ellipse.Point point4;
+//
+//    private Ellipse ellipse1;
+//    private Ellipse ellipse2;
+//    private Ellipse ellipse3;
+//    private Ellipse ellipse4;
+//    private Ellipse ellipse5;
+//    private Ellipse ellipse6;
+//    private Ellipse ellipse7;
+//
 //    @Before
 //    public void setUp() {
 //        ellipseObservable = new EllipseObservable();

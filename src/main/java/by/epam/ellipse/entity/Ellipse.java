@@ -1,6 +1,7 @@
 package by.epam.ellipse.entity;
 
 public class Ellipse {
+
     private int id;
     private Point pointA;
     private Point pointB;
@@ -73,7 +74,7 @@ public class Ellipse {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

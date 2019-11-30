@@ -3,18 +3,18 @@ package by.epam.ellipse.registrar;
 import by.epam.ellipse.entity.Ellipse;
 
 public class EllipseParametersObserverTest {
-    private ParametersObserver parametersObserver;
-    private EllipseObservable ellipseObservable;
-
-
-    private Ellipse.Point point1;
-    private Ellipse.Point point2;
-    private Ellipse.Point point3;
-    private Ellipse.Point point4;
-
-    private Ellipse ellipse1;
-    private Ellipse ellipse2;
-
+//    private ParametersObserver parametersObserver;
+//    private EllipseObservable ellipseObservable;
+//
+//
+//    private Ellipse.Point point1;
+//    private Ellipse.Point point2;
+//    private Ellipse.Point point3;
+//    private Ellipse.Point point4;
+//
+//    private Ellipse ellipse1;
+//    private Ellipse ellipse2;
+//
 //    @Before
 //    public void setUp() {
 //        ellipseObservable = new EllipseObservable();

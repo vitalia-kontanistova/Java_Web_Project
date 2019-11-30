@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EllipseObservable implements Observable<Observer<Ellipse>> {
+
     private List<Observer<Ellipse>> observers = new ArrayList<>();
     private Ellipse ellipse;
 
@@ -40,7 +41,7 @@ public class EllipseObservable implements Observable<Observer<Ellipse>> {
             if (ellipseService.isEllipseExist(ellipse, ParametersServiceImpl.getInstance())) {
                 this.ellipse = ellipse;
                 notifyObservers();
-            } else throw new ServiceException("Trying to createFromFile invalid ellipse.");
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (ServiceException e) {
             throw new ServiceException("EllipseObservable: setEllipse(): " + e.getMessage());
         }
@@ -52,7 +53,7 @@ public class EllipseObservable implements Observable<Observer<Ellipse>> {
                 this.ellipse.setPointA(pointA);
                 this.ellipse.setPointB(pointB);
                 notifyObservers();
-            } else throw new ServiceException("Trying to createFromFile invalid ellipse.");
+            } else throw new ServiceException("Trying to create invalid ellipse.");
         } catch (ServiceException e) {
             throw new ServiceException("EllipseObservable: setPoints(): " + e.getMessage());
         }

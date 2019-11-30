@@ -6,6 +6,7 @@ import by.epam.ellipse.service.exception.ServiceException;
 import by.epam.ellipse.service.impl.EllipseServiceImpl;
 
 public interface ParametersService {
-    Parameters create (Ellipse ellipse, EllipseServiceImpl ellipseServiceImpl) throws ServiceException;
+    Parameters createParameters(Ellipse ellipse, EllipseServiceImpl ellipseServiceImpl) throws ServiceException;
+
     void updateParameters(Parameters parameters, Ellipse ellipse, EllipseServiceImpl ellipseServiceImpl) throws ServiceException;
 }

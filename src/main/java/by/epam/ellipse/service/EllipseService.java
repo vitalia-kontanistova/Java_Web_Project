@@ -1,15 +1,11 @@
 package by.epam.ellipse.service;
 
 import by.epam.ellipse.entity.Ellipse;
+import by.epam.ellipse.service.exception.ServiceException;
+import by.epam.ellipse.util.FileManipulator;
+
+import java.util.List;
 
 public interface EllipseService {
-     double findPerimeter(Ellipse ellipse);
-
-     double findArea(Ellipse ellipse);
-
-     boolean isCircle(Ellipse ellipse);
-
-     boolean isCrossX(Ellipse ellipse);
-
-     boolean isCrossY(Ellipse ellipse);
+    List<Ellipse> createFromFile(String requestToPropFile, FileManipulator fileManipulator) throws ServiceException;
 }

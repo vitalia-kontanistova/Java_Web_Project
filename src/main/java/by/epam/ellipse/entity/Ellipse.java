@@ -1,6 +1,8 @@
 package by.epam.ellipse.entity;
 
 public class Ellipse {
+
+    private int id;
     private Point pointA;
     private Point pointB;
 
@@ -64,6 +66,18 @@ public class Ellipse {
         this.pointB = pointB;
     }
 
+    public Ellipse() {
+        this(new Point(-1.0, -1.0), new Point(1.0, 1.0));
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Point getPointA() {
         return pointA;
     }
@@ -83,7 +97,8 @@ public class Ellipse {
     @Override
     public String toString() {
         return "Ellipse{" +
-                "pointA=" + pointA +
+                "id=" + id +
+                ", pointA=" + pointA +
                 ", pointB=" + pointB +
                 '}';
     }
@@ -92,14 +107,15 @@ public class Ellipse {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ellipse ellipse = (Ellipse) o;
-        return pointA.equals(ellipse.pointA) &&
-                pointB.equals(ellipse.pointB);
+        Ellipse that = (Ellipse) o;
+        return id == that.id &&
+                pointA.equals(that.pointA) &&
+                pointB.equals(that.pointB);
     }
 
     @Override
     public int hashCode() {
-        int result = 17;
+        int result = id;
         result = result * 31 + pointA.hashCode();
         result = result * 31 + pointB.hashCode();
 

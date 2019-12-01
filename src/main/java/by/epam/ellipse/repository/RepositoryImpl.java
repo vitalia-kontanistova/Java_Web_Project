@@ -29,7 +29,7 @@ public class RepositoryImpl implements Repository<Ellipse> {
             ellipse.setId(id);
 
             ellipses.add(ellipseObservable);
-            ellipseParameters.put(id,paramObserver);
+            ellipseParameters.put(id, paramObserver);
 
         } catch (NullPointerException | ServiceException e) {
             throw new DAOexception("RepositoryImpl: add(): " + e.getMessage());
@@ -49,14 +49,43 @@ public class RepositoryImpl implements Repository<Ellipse> {
     }
 
     @Override
-    public List<Ellipse> takeAll(Specification specification) {
+    public List<Ellipse> sort(Specification specification) {
+
+
         return null;
     }
 
     @Override
-    public Ellipse takeSome(Specification specification) {
+    public List<Ellipse> takeAll(Specification specification) {
+        List<Ellipse> result;
         return null;
     }
 
 
+    @Override
+    public List<Ellipse> takeSome(Specification specification) {
+        return null;
+    }
+
+    @Override
+    public Ellipse takeOne(Specification specification) {
+        return null;
+    }
+
+    private void coordinate() {
+        List<Integer> idBase = new ArrayList<>(ellipseParameters.keySet());
+
+        for (int currentId : idBase) {
+            boolean missingId = true;
+            for (EllipseObservable ellipseObservable : ellipses) {
+                Ellipse currentEllipse = ellipseObservable.getEllipse();
+                if (currentEllipse.getId() == currentId) {
+                    missingId = false;
+                }
+            }
+            if (missingId) {
+                ellipseParameters.remove(currentId);
+            }
+        }
+    }
 }
